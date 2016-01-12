@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">Solar System</string>
+    <string name="sun">EL SOL</string>
+    <string name="mercury">MERCURIO</string>
+    <string name="venus">VENUS</string>
+    <string name="earth">LA TIERRA</string>
+    <string name="moon">LA LUNA</string>
+    <string name="mars">MARTE</string>
+    <string name="phobos">PHOBOS</string>
+    <string name="deimos">DEIMOS</string>
+    <string name="jupiter">JUPITER</string>
+    <string name="saturn">SATURNO</string>
+    <string name="uranus">URANO</string>
+    <string name="neptune">NEPTUNO</string>
+    <string name="pluto">PLUTON</string>
+
+</resources>
