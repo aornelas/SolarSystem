@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
                 return insets;
             }
         });
-        pager.setAdapter(new SampleGridPagerAdapter(this, getFragmentManager()));
+        pager.setAdapter(new SolarSystemGridPagerAdapter(this, getFragmentManager()));
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setPager(pager);
 

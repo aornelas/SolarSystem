@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.support.wearable.view.FragmentGridPagerAdapter;
-import android.support.wearable.view.GridPagerAdapter;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,20 +25,18 @@ import java.util.List;
  * loaded from an background task and then updated using {@link #notifyRowBackgroundChanged(int)}
  * and {@link #notifyPageBackgroundChanged(int, int)}.
  */
-public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
-    private static final int TRANSITION_DURATION_MILLIS = 100;
+public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
+    private static final int TRANSITION_DURATION_MILLIS = 500;
 
     private final Context mContext;
-    private List<Row> mRows;
+    private SolarSystem mSolarSystem;
     private ColorDrawable mDefaultBg;
 
-    public SampleGridPagerAdapter(Context ctx, FragmentManager fm) {
+    public SolarSystemGridPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
         mContext = ctx;
 
-        mRows = new ArrayList<>();
-
-        mRows.add(new Row(
+        mSolarSystem = new SolarSystem(
                 zoomFragment(R.string.sun),
                 zoomFragment(R.string.mercury),
                 zoomFragment(R.string.venus),
@@ -53,7 +50,7 @@ public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
                 zoomFragment(R.string.uranus),
                 zoomFragment(R.string.neptune),
                 zoomFragment(R.string.pluto)
-        ));
+        );
         mDefaultBg = new ColorDrawable(ctx.getResources().getColor(R.color.black));
     }
 
@@ -96,10 +93,6 @@ public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
         }
     };
 
-    private Fragment fullFragment() {
-        return new Fragment();
-    }
-
     private Fragment zoomFragment(int textRes) {
         Resources res = mContext.getResources();
         Fragment fragment = new CustomFragment();
@@ -109,11 +102,10 @@ public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
         return fragment;
     }
 
-    /** A convenient container for a row of fragments. */
-    private class Row {
+    private class SolarSystem {
         final List<Fragment> columns = new ArrayList<Fragment>();
 
-        public Row(Fragment... fragments) {
+        public SolarSystem(Fragment... fragments) {
             for (Fragment f : fragments) {
                 add(f);
             }
@@ -123,19 +115,19 @@ public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
             columns.add(f);
         }
 
-        Fragment getColumn(int i) {
+        Fragment getPlanet(int i) {
             return columns.get(i);
         }
 
-        public int getColumnCount() {
+        public int getPlanetCount() {
             return columns.size();
         }
     }
 
     @Override
     public Fragment getFragment(int row, int col) {
-        Row adapterRow = mRows.get(row);
-        return adapterRow.getColumn(col);
+        // TODO: Consider moon rows
+        return mSolarSystem.getPlanet(col);
     }
 
     @Override
@@ -145,12 +137,13 @@ public class SampleGridPagerAdapter extends FragmentGridPagerAdapter {
 
     @Override
     public int getRowCount() {
-        return mRows.size();
+        // TODO: Change row count based on number of moons on current planet
+        return 1;
     }
 
     @Override
     public int getColumnCount(int rowNum) {
-        return mRows.get(rowNum).getColumnCount();
+        return mSolarSystem.getPlanetCount();
     }
 
     class DrawableLoadingTask extends AsyncTask<Integer, Void, Drawable> {
