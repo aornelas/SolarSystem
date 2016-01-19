@@ -3,18 +3,18 @@
 <resources>
 
     <string name="app_name">Solar System</string>
-    <string name="sun">EL SOL</string>
-    <string name="mercury">MERCURIO</string>
-    <string name="venus">VENUS</string>
-    <string name="earth">TIERRA</string>
-    <string name="moon">LA LUNA</string>
-    <string name="mars">MARTE</string>
-    <string name="phobos">PHOBOS</string>
-    <string name="deimos">DEIMOS</string>
-    <string name="jupiter">JUPITER</string>
-    <string name="saturn">SATURNO</string>
-    <string name="uranus">URANO</string>
-    <string name="neptune">NEPTUNO</string>
-    <string name="pluto">PLUTON</string>
+    <string name="sun">el sol</string>
+    <string name="mercury">mercurio</string>
+    <string name="venus">venus</string>
+    <string name="earth">tierra</string>
+    <string name="moon">la luna</string>
+    <string name="mars">marte</string>
+    <string name="phobos">phobos</string>
+    <string name="deimos">deimos</string>
+    <string name="jupiter">jupiter</string>
+    <string name="saturn">saturno</string>
+    <string name="uranus">urano</string>
+    <string name="neptune">neptuno</string>
+    <string name="pluto">pluton</string>
 
 </resources>
