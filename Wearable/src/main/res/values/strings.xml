@@ -16,5 +16,6 @@
     <string name="uranus">uranus</string>
     <string name="neptune">neptune</string>
     <string name="pluto">pluto</string>
+    <string name="long_press_intro">Long press to exit</string>
 
 </resources>
