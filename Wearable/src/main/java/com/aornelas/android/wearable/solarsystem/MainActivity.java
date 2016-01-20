@@ -65,6 +65,8 @@ public class MainActivity extends Activity {
         });
         pager.setAdapter(new SolarSystemGridPagerAdapter(this, getFragmentManager()));
         DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
+        dotsPageIndicator.setDotRadius(4);
+        dotsPageIndicator.setDotRadiusSelected(7);
         dotsPageIndicator.setPager(pager);
 
         // Prevent the screen timeout from stopping this application
