@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sistema Solar para Android Wear</string>
+    <string name="welcome_message">¡Gracias por instalar! Ahora puedes abrir Sistema Solar desde tu reloj conectado.</string>
+</resources>

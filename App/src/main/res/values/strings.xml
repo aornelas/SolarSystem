@@ -1,6 +1,6 @@
 <resources>
+    <!-- Shown as the view title when the user opens the app from their phone -->
     <string name="app_name">Solar System for Android Wear</string>
-
-    <string name="hello_world">Thanks for installing! You can now open Solar System on your connected watch.</string>
-    <string name="action_settings">Settings</string>
+    <!-- Shown as the view content when the user opens the app from their phone -->
+    <string name="welcome_message">Thanks for installing! You can now open Solar System on your connected watch.</string>
 </resources>
