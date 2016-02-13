@@ -31,25 +31,46 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
     private final Context mContext;
     private SolarSystem mSolarSystem;
     private ColorDrawable mDefaultBg;
+    private int mCurrentColumn = 0;
 
     public SolarSystemGridPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
         mContext = ctx;
 
         mSolarSystem = new SolarSystem(
-                zoomFragment(R.string.sun),
-                zoomFragment(R.string.mercury),
-                zoomFragment(R.string.venus),
-                zoomFragment(R.string.earth),
-                zoomFragment(R.string.moon),
-                zoomFragment(R.string.mars),
-                zoomFragment(R.string.phobos),
-                zoomFragment(R.string.deimos),
-                zoomFragment(R.string.jupiter),
-                zoomFragment(R.string.saturn),
-                zoomFragment(R.string.uranus),
-                zoomFragment(R.string.neptune),
-                zoomFragment(R.string.pluto)
+                new PlanetarySystem(
+                        objectFragment(R.string.sun)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.mercury)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.venus)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.earth),
+                        objectFragment(R.string.moon)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.mars),
+                        objectFragment(R.string.phobos),
+                        objectFragment(R.string.deimos)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.jupiter)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.saturn)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.uranus)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.neptune)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.pluto)
+                )
         );
         mDefaultBg = new ColorDrawable(ctx.getResources().getColor(R.color.black));
     }
@@ -57,18 +78,36 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
 
     static final int[][] BG_IMAGES = new int[][] {
             {
-                    R.drawable.sun,
-                    R.drawable.mercury,
-                    R.drawable.venus,
+                    R.drawable.sun
+            },
+            {
+                    R.drawable.mercury
+            },
+            {
+                    R.drawable.venus
+            },
+            {
                     R.drawable.earth,
-                    R.drawable.moon,
+                    R.drawable.moon
+            },
+            {
                     R.drawable.mars,
                     R.drawable.phobos,
-                    R.drawable.deimos,
-                    R.drawable.jupiter,
-                    R.drawable.saturn,
-                    R.drawable.uranus,
-                    R.drawable.neptune,
+                    R.drawable.deimos
+            },
+            {
+                    R.drawable.jupiter
+            },
+            {
+                    R.drawable.saturn
+            },
+            {
+                    R.drawable.uranus
+            },
+            {
+                    R.drawable.neptune
+            },
+            {
                     R.drawable.pluto
             }
     };
@@ -76,7 +115,9 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
     LruCache<Point, Drawable> mPageBackgrounds = new LruCache<Point, Drawable>(3) {
         @Override
         protected Drawable create(final Point page) {
-            int resid = BG_IMAGES[page.y][page.x];
+            final int row = page.y;
+            final int column = page.x;
+            final int resid = BG_IMAGES[column][row];
             new DrawableLoadingTask(mContext) {
                 @Override
                 protected void onPostExecute(Drawable result) {
@@ -85,66 +126,13 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                             result
                     });
                     mPageBackgrounds.put(page, background);
-                    notifyPageBackgroundChanged(page.y, page.x);
+                    notifyPageBackgroundChanged(row, column);
                     background.startTransition(TRANSITION_DURATION_MILLIS);
                 }
             }.execute(resid);
             return mDefaultBg;
         }
     };
-
-    private Fragment zoomFragment(int textRes) {
-        Resources res = mContext.getResources();
-        Fragment fragment = new CustomFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(CustomFragment.NAME_KEY, res.getText(textRes).toString());
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    private class SolarSystem {
-        final List<Fragment> columns = new ArrayList<Fragment>();
-
-        public SolarSystem(Fragment... fragments) {
-            for (Fragment f : fragments) {
-                add(f);
-            }
-        }
-
-        public void add(Fragment f) {
-            columns.add(f);
-        }
-
-        Fragment getPlanet(int i) {
-            return columns.get(i);
-        }
-
-        public int getPlanetCount() {
-            return columns.size();
-        }
-    }
-
-    @Override
-    public Fragment getFragment(int row, int col) {
-        // TODO: Consider moon rows
-        return mSolarSystem.getPlanet(col);
-    }
-
-    @Override
-    public Drawable getBackgroundForPage(final int row, final int column) {
-        return mPageBackgrounds.get(new Point(column, row));
-    }
-
-    @Override
-    public int getRowCount() {
-        // TODO: Change row count based on number of moons on current planet
-        return 1;
-    }
-
-    @Override
-    public int getColumnCount(int rowNum) {
-        return mSolarSystem.getPlanetCount();
-    }
 
     class DrawableLoadingTask extends AsyncTask<Integer, Void, Drawable> {
         private static final String TAG = "Loader";
@@ -159,5 +147,74 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
             Log.d(TAG, "Loading asset 0x" + Integer.toHexString(params[0]));
             return context.getResources().getDrawable(params[0]);
         }
+    }
+
+    private Fragment objectFragment(int textRes) {
+        Resources res = mContext.getResources();
+        Fragment fragment = new CustomFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(CustomFragment.NAME_KEY, res.getText(textRes).toString());
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    private class SolarSystem {
+        final List<PlanetarySystem> planetarySystems = new ArrayList<>();
+
+        public SolarSystem(PlanetarySystem... planetarySystems) {
+            for (PlanetarySystem pS : planetarySystems) {
+                this.planetarySystems.add(pS);
+            }
+        }
+
+        PlanetarySystem getPlanetarySystem(int i) {
+            return planetarySystems.get(i);
+        }
+
+        public int getPlanetarySystemCount() {
+            return planetarySystems.size();
+        }
+    }
+
+    private class PlanetarySystem {
+        final List<Fragment> rows = new ArrayList<>();
+
+        public PlanetarySystem(Fragment... fragments) {
+            for (Fragment f : fragments) {
+                add(f);
+            }
+        }
+
+        public void add(Fragment f) {
+            rows.add(f);
+        }
+
+        Fragment getFragment(int i) {
+            return rows.get(i);
+        }
+
+        public int getFragmentCount() {
+            return rows.size();
+        }
+    }
+
+    @Override
+    public Fragment getFragment(int row, int col) {
+        return mSolarSystem.getPlanetarySystem(col).getFragment(row);
+    }
+
+    @Override
+    public Drawable getBackgroundForPage(final int row, final int column) {
+        return mPageBackgrounds.get(new Point(column, row));
+    }
+
+    @Override
+    public int getRowCount() {
+        return mSolarSystem.getPlanetarySystem(mCurrentColumn).getFragmentCount();
+    }
+
+    @Override
+    public int getColumnCount(int rowNum) {
+        return mSolarSystem.getPlanetarySystemCount();
     }
 }
