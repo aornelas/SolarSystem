@@ -15,7 +15,8 @@
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:rotation="270" >
 
     <android.support.wearable.view.GridViewPager
         android:id="@+id/pager"
@@ -33,6 +34,7 @@
     <android.support.wearable.view.DismissOverlayView
         android:id="@+id/dismiss_overlay"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        android:rotation="90" />
 
 </FrameLayout>
