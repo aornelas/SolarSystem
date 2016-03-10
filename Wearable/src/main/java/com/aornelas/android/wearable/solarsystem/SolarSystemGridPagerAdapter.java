@@ -4,12 +4,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 import android.support.wearable.view.FragmentGridPagerAdapter;
 import android.util.Log;
@@ -117,13 +121,13 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
         protected Drawable create(final Point page) {
             final int row = page.y;
             final int column = page.x;
-            final int resid = BG_IMAGES[column][row];
+            final int resid = BG_IMAGES[row][column];
             new DrawableLoadingTask(mContext) {
                 @Override
                 protected void onPostExecute(Drawable result) {
                     TransitionDrawable background = new TransitionDrawable(new Drawable[] {
                             mDefaultBg,
-                            result
+                            rotateDrawable(result)
                     });
                     mPageBackgrounds.put(page, background);
                     notifyPageBackgroundChanged(row, column);
@@ -131,6 +135,20 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                 }
             }.execute(resid);
             return mDefaultBg;
+        }
+
+        /**
+         * Rotates the given drawable by 90 degrees
+         */
+        private Drawable rotateDrawable(@NonNull final Drawable drawable) {
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+            Canvas canvas = new Canvas(bitmap);
+            canvas.rotate(90, canvas.getWidth() / 2, canvas.getHeight() / 2);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            return new BitmapDrawable(mContext.getResources(), bitmap);
         }
     };
 
@@ -200,7 +218,7 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
 
     @Override
     public Fragment getFragment(int row, int col) {
-        return mSolarSystem.getPlanetarySystem(col).getFragment(row);
+        return mSolarSystem.getPlanetarySystem(row).getFragment(col);
     }
 
     @Override
@@ -210,11 +228,11 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
 
     @Override
     public int getRowCount() {
-        return mSolarSystem.getPlanetarySystem(mCurrentColumn).getFragmentCount();
+        return mSolarSystem.getPlanetarySystemCount();
     }
 
     @Override
     public int getColumnCount(int rowNum) {
-        return mSolarSystem.getPlanetarySystemCount();
+        return mSolarSystem.getPlanetarySystem(rowNum).getFragmentCount();
     }
 }
