@@ -2,7 +2,7 @@
 
 Android Wearable app to explore the Solar System
 
-![tour](https://raw.githubusercontent.com/aornelas/SolarSystem/master/screenshots/v1.1.gif)
+![tour](https://raw.githubusercontent.com/aornelas/SolarSystem/master/screenshots/v2.gif)
 
 # Installation
 
