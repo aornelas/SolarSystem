@@ -12,11 +12,33 @@
     <string name="phobos">phobos</string>
     <string name="deimos">deimos</string>
     <string name="jupiter">jupiter</string>
+    <string name="io">io</string>
     <string name="saturn">saturn</string>
     <string name="uranus">uranus</string>
     <string name="neptune">neptune</string>
     <string name="pluto">pluto</string>
     <!-- Shown momentarily the first time the app is opened -->
     <string name="long_press_intro">Long press to exit</string>
+    <string name="europa">europa</string>
+    <string name="ganymede">ganymede</string>
+    <string name="callisto">callisto</string>
+    <string name="titan">titan</string>
+    <string name="enceladus">enceladus</string>
+    <string name="mimas">mimas</string>
+    <string name="tethys">tethys</string>
+    <string name="dione">dione</string>
+    <string name="rhea">rhea</string>
+    <string name="hyperion">hyperion</string>
+    <string name="iapetus">iapetus</string>
+    <string name="phoebe">phoebe</string>
+    <string name="miranda">miranda</string>
+    <string name="ariel">ariel</string>
+    <string name="umbriel">umbriel</string>
+    <string name="titania">titania</string>
+    <string name="oberon">oberon</string>
+    <string name="triton">triton</string>
+    <string name="charon">charon</string>
+    <string name="nix">nix</string>
+    <string name="hydra">hydra</string>
 
 </resources>

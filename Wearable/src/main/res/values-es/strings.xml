@@ -15,4 +15,26 @@
     <string name="sun">el sol</string>
     <string name="uranus">urano</string>
     <string name="venus">venus</string>
+    <string name="io">io</string>
+    <string name="europa">europa</string>
+    <string name="ganymede">ganímedes</string>
+    <string name="callisto">callisto</string>
+    <string name="titan">titán</string>
+    <string name="enceladus">encelado</string>
+    <string name="mimas">mimas</string>
+    <string name="dione">dione</string>
+    <string name="hyperion">hiperión</string>
+    <string name="iapetus">jápeto</string>
+    <string name="phoebe">febe</string>
+    <string name="rhea">rea</string>
+    <string name="tethys">tetis</string>
+    <string name="oberon">oberón</string>
+    <string name="titania">titania</string>
+    <string name="umbriel">umbriel</string>
+    <string name="miranda">miranda</string>
+    <string name="ariel">ariel</string>
+    <string name="charon">caronte</string>
+    <string name="nix">nix</string>
+    <string name="hydra">hidra</string>
+    <string name="triton">tritón</string>
 </resources>
