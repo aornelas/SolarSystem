@@ -40,5 +40,19 @@
     <string name="charon">charon</string>
     <string name="nix">nix</string>
     <string name="hydra">hydra</string>
+    <string name="main_asteroid_belt">main asteroid belt</string>
+    <string name="kuiper_belt">kuiper belt</string>
+    <string name="ceres">ceres</string>
+    <string name="kerberos">kerberos</string>
+    <string name="styx">styx</string>
+    <string name="vesta">vesta</string>
+    <string name="pallas">pallas</string>
+    <string name="hygiea">hygiea</string>
+    <string name="larissa">larissa</string>
+    <string name="eris">eris</string>
+    <string name="sedna">sedna</string>
+    <string name="haumea">haumea</string>
+    <string name="makemake">makemake</string>
+    <string name="oort_cloud">oort cloud</string>
 
 </resources>

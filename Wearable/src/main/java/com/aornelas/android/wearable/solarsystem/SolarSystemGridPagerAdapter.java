@@ -61,6 +61,13 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                         objectFragment(R.string.deimos)
                 ),
                 new PlanetarySystem(
+                        objectFragment(R.string.main_asteroid_belt),
+                        objectFragment(R.string.ceres),
+                        objectFragment(R.string.vesta),
+                        objectFragment(R.string.pallas),
+                        objectFragment(R.string.hygiea)
+                ),
+                new PlanetarySystem(
                         objectFragment(R.string.jupiter),
                         objectFragment(R.string.io),
                         objectFragment(R.string.europa),
@@ -90,13 +97,28 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                 ),
                 new PlanetarySystem(
                         objectFragment(R.string.neptune),
-                        objectFragment(R.string.triton)
+                        objectFragment(R.string.triton),
+                        objectFragment(R.string.larissa)
                 ),
                 new PlanetarySystem(
                         objectFragment(R.string.pluto),
                         objectFragment(R.string.charon),
                         objectFragment(R.string.nix),
-                        objectFragment(R.string.hydra)
+                        objectFragment(R.string.hydra),
+                        objectFragment(R.string.kerberos),
+                        objectFragment(R.string.styx)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.kuiper_belt),
+                        objectFragment(R.string.haumea),
+                        objectFragment(R.string.makemake),
+                        objectFragment(R.string.eris)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.sedna)
+                ),
+                new PlanetarySystem(
+                        objectFragment(R.string.oort_cloud)
                 )
         );
         mDefaultBg = new ColorDrawable(ctx.getResources().getColor(R.color.black));
@@ -121,6 +143,13 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                     R.drawable.mars,
                     R.drawable.phobos,
                     R.drawable.deimos
+            },
+            {
+                    R.drawable.main_asteroid_belt,
+                    R.drawable.ceres,
+                    R.drawable.vesta,
+                    R.drawable.pallas,
+                    R.drawable.hygiea
             },
             {
                     R.drawable.jupiter,
@@ -151,13 +180,29 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
             },
             {
                     R.drawable.neptune,
-                    R.drawable.triton
+                    R.drawable.triton,
+                    R.drawable.larissa,
+                    R.drawable.eris
             },
             {
                     R.drawable.pluto,
                     R.drawable.charon,
                     R.drawable.nix,
-                    R.drawable.hydra
+                    R.drawable.hydra,
+                    R.drawable.kerberos,
+                    R.drawable.styx
+            },
+            {
+                    R.drawable.kuiper_belt,
+                    R.drawable.haumea,
+                    R.drawable.makemake,
+                    R.drawable.eris,
+            },
+            {
+                    R.drawable.sedna
+            },
+            {
+                    R.drawable.oort_cloud
             }
     };
 
