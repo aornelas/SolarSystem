@@ -53,7 +53,9 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                 ),
                 new PlanetarySystem(
                         objectFragment(R.string.earth),
-                        objectFragment(R.string.moon)
+                        objectFragment(R.string.international_space_station),
+                        objectFragment(R.string.moon),
+                        objectFragment(R.string.apollo_lunar_rover)
                 ),
                 new PlanetarySystem(
                         objectFragment(R.string.mars),
@@ -137,7 +139,9 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
             },
             {
                     R.drawable.earth,
-                    R.drawable.moon
+                    R.drawable.international_space_station,
+                    R.drawable.moon,
+                    R.drawable.apollo_lunar_rover
             },
             {
                     R.drawable.mars,

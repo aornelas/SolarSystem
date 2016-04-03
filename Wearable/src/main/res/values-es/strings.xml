@@ -37,4 +37,6 @@
     <string name="nix">nix</string>
     <string name="hydra">hidra</string>
     <string name="triton">tritón</string>
+    <string name="international_space_station">estación espacial internacional</string>
+    <string name="apollo_lunar_rover">rover lunar apolo</string>
 </resources>
