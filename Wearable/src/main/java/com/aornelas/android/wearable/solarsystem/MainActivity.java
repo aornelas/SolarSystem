@@ -1,6 +1,7 @@
 package com.aornelas.android.wearable.solarsystem;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.wearable.view.DismissOverlayView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.View.OnApplyWindowInsetsListener;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -62,11 +64,41 @@ public class MainActivity extends Activity {
                 return mDetector.onTouchEvent(event);
             }
         });
-        pager.setAdapter(new SolarSystemGridPagerAdapter(this, getFragmentManager()));
-        DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
+        final SolarSystemGridPagerAdapter adapter = new SolarSystemGridPagerAdapter(this, getFragmentManager());
+        pager.setAdapter(adapter);
+        final DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) findViewById(R.id.page_indicator);
         dotsPageIndicator.setDotRadius(4);
         dotsPageIndicator.setDotRadiusSelected(7);
         dotsPageIndicator.setPager(pager);
+        // We'll dismiss it ourselves, so prevent auto fade out
+        dotsPageIndicator.setDotFadeOutDelay(999999);
+
+        dotsPageIndicator.setOnPageChangeListener(new GridViewPager.OnPageChangeListener() {
+            private TextView label;
+
+            @Override
+            public void onPageScrolled(int i, int i1, float v, float v1, int i2, int i3) {
+            }
+
+            @Override
+            public void onPageSelected(int row, int col) {
+                final Fragment currentFragment = adapter.getFragment(row, col);
+                label = (TextView) currentFragment.getView().findViewById(R.id.text);
+                label.setVisibility(View.VISIBLE);
+                dotsPageIndicator.setVisibility(View.VISIBLE);
+                adapter.hideUIAfterDelay(row, col);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                if (label != null) {
+                    label.setVisibility(View.VISIBLE);
+                }
+                if (dotsPageIndicator != null) {
+                    dotsPageIndicator.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         // Prevent the screen timeout from stopping this application
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

@@ -1,5 +1,6 @@
 package com.aornelas.android.wearable.solarsystem;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -15,8 +16,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
+import android.support.wearable.view.DotsPageIndicator;
 import android.support.wearable.view.FragmentGridPagerAdapter;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +41,6 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
     private final Context mContext;
     private SolarSystem mSolarSystem;
     private ColorDrawable mDefaultBg;
-    private int mCurrentColumn = 0;
 
     public SolarSystemGridPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
@@ -226,8 +231,11 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                     mPageBackgrounds.put(page, background);
                     notifyPageBackgroundChanged(row, column);
                     background.startTransition(TRANSITION_DURATION_MILLIS);
+
+                    hideUIAfterDelay(row, column);
                 }
             }.execute(resid);
+
             return mDefaultBg;
         }
 
@@ -245,6 +253,49 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
             return new BitmapDrawable(mContext.getResources(), bitmap);
         }
     };
+
+    public void hideUIAfterDelay(int row, int column) {
+        // Only hide label if background was already loaded; otherwise, the postExecute of load will
+        if (getBackgroundForPage(row, column) != mDefaultBg) {
+            final Activity activity = getFragment(row, column).getActivity();
+            final View view = getFragment(row, column).getView();
+            if (activity == null || view == null) {
+                return;
+            }
+            final TextView label = (TextView) view.findViewById(R.id.text);
+            final DotsPageIndicator dotsPageIndicator = (DotsPageIndicator) activity
+                    .findViewById(R.id.page_indicator);
+            final Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+            fadeOut.setDuration(500);
+            fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (label != null) {
+                        label.setVisibility(View.INVISIBLE);
+                    }
+                    if (dotsPageIndicator != null) {
+                        dotsPageIndicator.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    label.startAnimation(fadeOut);
+                    dotsPageIndicator.startAnimation(fadeOut);
+                }
+            }, 1000);
+        }
+    }
 
     class DrawableLoadingTask extends AsyncTask<Integer, Void, Drawable> {
         private static final String TAG = "Loader";
