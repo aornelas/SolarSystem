@@ -6,10 +6,10 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
@@ -40,7 +40,7 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
 
     private final Context mContext;
     private SolarSystem mSolarSystem;
-    private ColorDrawable mDefaultBg;
+    private BitmapDrawable mDefaultBg;
 
     public SolarSystemGridPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
@@ -128,7 +128,8 @@ public class SolarSystemGridPagerAdapter extends FragmentGridPagerAdapter {
                         objectFragment(R.string.oort_cloud)
                 )
         );
-        mDefaultBg = new ColorDrawable(ctx.getResources().getColor(R.color.black));
+        mDefaultBg = new BitmapDrawable(ctx.getResources(),
+                BitmapFactory.decodeResource(ctx.getResources(), R.drawable.loading));
     }
 
 
